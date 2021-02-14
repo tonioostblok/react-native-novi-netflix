@@ -1,0 +1,12 @@
+{
+  "name": "react-native-novi-netflix",
+  "displayName": "react-native-novi-netflix",
+  "expo": {
+    "name": "react-native-novi-netflix",
+    "slug": "react-native-novi-netflix",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
