@@ -1,24 +1,41 @@
-import React from "react";
-import { ShowView, ShowImage, ShowText, ShowContent } from "./StyledComponents";
-import {decode} from 'html-entities';
-class Show extends React.Component {
+import React from 'react';
+import PropTypes from 'prop-types';
+import { decode } from 'html-entities';
+import {
+  ShowView, ShowImage, ShowText, ShowContent,
+} from './StyledComponents';
 
-    render(){
-        const { title, img, synopsis, year } = this.props;
-        return(
-            <ShowView>
-                <ShowImage
-                    source={{uri:img}}
-                />
-                <ShowContent>
-                    <ShowText>{decode(title)}</ShowText>
-                    <ShowText>{decode(synopsis)}</ShowText>
-                    <ShowText>Year: {year}</ShowText>
-                </ShowContent>
-            </ShowView>
-        )
-    }
-}
+const Show = (props) => {
+  const {
+    title, img, synopsis, year, expireDate,
+  } = props;
+  return (
+    <ShowView>
+      <ShowImage
+        source={{ uri: img }}
+      />
+      <ShowContent>
+        <ShowText>{decode(title)}</ShowText>
+        <ShowText>{decode(synopsis)}</ShowText>
+        <ShowText>
+          Year:
+          {year}
 
+          {expireDate && `Expire date: ${expireDate}`}
+        </ShowText>
+      </ShowContent>
+    </ShowView>
+  );
+};
+Show.propTypes = {
+  title: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
+  synopsis: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
+  expireDate: PropTypes.string,
+};
 
+Show.defaultProps = {
+  expireDate: '',
+};
 export default Show;

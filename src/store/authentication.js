@@ -1,5 +1,5 @@
 import firebase from '../constants/Firebase';
-import { storeUserId, getUserId} from "../utils/AsyncStorageMethods";
+import { storeUserId } from '../utils/AsyncStorageMethods';
 
 export const LOGIN_CHANGE = 'LOGIN_CHANGE';
 export const USERNAME_CHANGE = 'USERNAME_CHANGE';
@@ -38,7 +38,6 @@ export const getMe = (hash) => (dispatch) => {
 };
 
 export const login = (username, password) => (dispatch) => {
-
   firebase.firestore().collection('users').where('username', '==', username).get()
     .then((query) => {
       query.forEach((doc) => {
@@ -49,23 +48,10 @@ export const login = (username, password) => (dispatch) => {
           });
         }
       });
-    }).catch((err) => {
-      console.log("test")
-
-    console.log(err)
-  });
-};
-
-export const registerUser = (registerObject) => () => {
-  firebase.firestore().collection('users').add({
-    username: registerObject.username,
-    password: registerObject.password,
-    country: registerObject.country,
-  });
-};
-
-export const updateUser = (updateValues) => () => {
-  firebase.firestore().collection('users').doc(localStorage.getItem('user_id')).set(updateValues);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 export const updateUserName = (username) => (dispatch) => {

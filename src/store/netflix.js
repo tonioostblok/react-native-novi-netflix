@@ -2,55 +2,12 @@ import { NETFLIX_API_URL, API_REQUEST_HEADERS, API_REQUEST_OBJECT } from '../con
 
 export const FETCH_SHOWS_CHANGE = 'FETCH_SHOWS_CHANGE';
 
-export const COUNTRIES_FETCHED = 'COUNTRIES_FETCHED';
-export const FETCHING = 'FETCHING';
-
 export function fetchShowsChange(payload) {
   return ({
     type: FETCH_SHOWS_CHANGE,
     payload,
   });
 }
-
-export function fetching(payload) {
-  return ({
-    type: FETCHING,
-    payload,
-  });
-}
-
-export function fetchCountriesChange(payload) {
-  return ({
-    type: COUNTRIES_FETCHED,
-    payload,
-  });
-}
-
-export const fetchCountries = () => (dispatch) => {
-  const requestObj = {
-    ...API_REQUEST_OBJECT,
-    method: 'GET',
-    headers: {
-      ...API_REQUEST_HEADERS,
-    },
-  };
-
-  return fetch(`${NETFLIX_API_URL}/countries`, requestObj)
-    .then((response) => Promise.resolve(response.json())).then((data) => {
-      const mappedCountries = [];
-
-      data.results.map((val) => mappedCountries.push({
-        key: val.id,
-        value: val.id,
-        flag: val.countrycode.toLowerCase(),
-        text: val.country.trim(),
-      }));
-      dispatch(fetchCountriesChange(mappedCountries));
-      return Promise.resolve(data);
-    }).catch((err) => {
-      console.error(err);
-    });
-};
 
 /**
  * Fetches active netflix shows. Countrylist default id is for the Netherlands
@@ -67,12 +24,9 @@ export const fetchActualShows = (offset = 0, limit = 10, countryList = 67, query
       ...API_REQUEST_HEADERS,
     },
   };
-  dispatch(fetching(true));
   return fetch(`${NETFLIX_API_URL}/search?${query}&offset=${offset}&limit=${limit}&countrylist=${countryList}`, requestObj)
     .then((response) => Promise.resolve(response.json())).then((data) => {
       dispatch(fetchShowsChange(data.results));
-      console.log(data.results)
-      dispatch(fetching(false));
       return Promise.resolve(data);
     }).catch((err) => {
       console.error(err);
@@ -96,7 +50,6 @@ export const fetchDeletedShows = (offset = 0,
       ...API_REQUEST_HEADERS,
     },
   };
-  dispatch(fetching(true));
   return fetch(`${NETFLIX_API_URL}expiring?offset=${offset}&limit=${limit}&countrylist=${countryList}`, requestObj)
     .then((response) => Promise.resolve(response.json())).then((data) => {
       /**
@@ -117,7 +70,6 @@ export const fetchDeletedShows = (offset = 0,
       }));
       Promise.all(promises).then((res) => {
         dispatch(fetchShowsChange(res));
-        dispatch(fetching(false));
       });
       return Promise.resolve(data);
     }).catch((err) => {
@@ -126,19 +78,13 @@ export const fetchDeletedShows = (offset = 0,
 };
 
 export const initialState = {
-  fetching: false,
   shows: [],
-  countries: [],
 };
 
 export default function netflixReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCHING:
-      return { ...state, fetching: action.payload };
     case FETCH_SHOWS_CHANGE:
       return { ...state, shows: action.payload };
-    case COUNTRIES_FETCHED:
-      return { ...state, countries: action.payload };
     default:
       return { ...state };
   }

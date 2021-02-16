@@ -1,25 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const storeUserId = async (userId) => {
-    try {
-        await AsyncStorage.setItem('@userId', userId)
-    } catch (e) {
-        console.error(e)
-    }
-};
+export const storeUserId = async (userId) => await AsyncStorage.setItem('@userId', userId);
 
-export const getUserId = async () => {
-    try {
-        return await AsyncStorage.getItem('@userId')
-    } catch(e) {
-        console.error(e)
-    }
-}
+export const getUserId = async () => await AsyncStorage.getItem('@userId');
 
-export const signOut = async () => {
-    try {
-        return await AsyncStorage.removeItem('@userId')
-    } catch(e) {
-        console.error(e)
-    }
-}
+export const signOut = async () => await AsyncStorage.removeItem('@userId');
