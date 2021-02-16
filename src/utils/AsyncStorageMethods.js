@@ -15,3 +15,11 @@ export const getUserId = async () => {
         console.error(e)
     }
 }
+
+export const signOut = async () => {
+    try {
+        return await AsyncStorage.removeItem('@userId')
+    } catch(e) {
+        console.error(e)
+    }
+}

@@ -33,10 +33,12 @@ class Login extends React.Component {
                 </Title>
                 <StyledInput
                     onChangeText={(event) => updateUserName(event)}
+                    autoCapitalize="none"
                     placeholder="username"
                 />
                 <StyledInput
                     onChangeText={(event) => updatePassword(event)}
+                    autoCapitalize="none"
                     placeholder="password"
                 />
                 <StyledButton onPress={() => this.submitHandler()}>

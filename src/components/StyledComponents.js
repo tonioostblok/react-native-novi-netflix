@@ -24,7 +24,7 @@ export const StyledView = styled.View`
 `
 
 export const StyledButton = styled.TouchableOpacity`
-  border-radius: 27px !important;
+  border-radius: 35px !important;
   display:flex;
   justify-content:center;
   padding:25px;
@@ -50,8 +50,7 @@ export const Title = styled.Text`
 
 export const ButtonWrapper = styled.View`
  display:flex;
- flex-direction:row;
- width:100%;   
+ flex-direction:row; 
  justify-content:space-between;
 `
 

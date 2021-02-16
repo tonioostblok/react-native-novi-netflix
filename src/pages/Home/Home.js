@@ -1,8 +1,9 @@
 import React from "react";
 import { StyledView, WhiteText, StyledButton, ButtonWrapper } from "../../components/StyledComponents";
-import { getUserId } from "../../utils/AsyncStorageMethods";
+import { getUserId, signOut } from "../../utils/AsyncStorageMethods";
 import {ScrollView } from "react-native";
 import Show from "../../components/Show";
+import { loginChange } from "../../store/authentication";
 
 class Home extends React.Component {
 
@@ -17,9 +18,13 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        const { user, getMe, navigation } = this.props;
         getUserId().then((val) => {
             if(val === null){
-                this.props.navigation.navigate("Login")
+                navigation.navigate("Login")
+            }
+            if(user.username === "" && val !== null){
+                getMe(val)
             }
         })
     }
@@ -47,28 +52,47 @@ class Home extends React.Component {
     }
 
     handleButtonClick(val){
-        const { fetchActualShows, fetchDeletedShows } = this.props;
+        const { fetchActualShows, fetchDeletedShows, user } = this.props;
         if(val === "deleted"){
-            fetchDeletedShows();
+            fetchDeletedShows(0, 10, user.country);
             this.setState({
                 fetchDeleted:true,
             })
         }else{
-            fetchActualShows();
+            fetchActualShows(0, 10, user.country);
         }
+    }
+
+    signUserOut(){
+        const { navigation } = this.props;
+        signOut().then(() => {
+            navigation.navigate("Login")
+            loginChange({
+                "username":"",
+                "password":"",
+                "country":""
+            })
+        })
     }
 
     render(){
         const { shows } = this.props;
         return(
             <StyledView>
+                <StyledButton>
+                    <WhiteText
+                        onPress={() => this.signUserOut()}
+                    >
+                        Sign out
+                    </WhiteText>
+                </StyledButton>
                 <ButtonWrapper>
                     <StyledButton
                         buttonWidth={"49%"}
                         onPress={() => this.handleButtonClick()}
                     >
                         <WhiteText>
-                            New shows
+                            New
                         </WhiteText>
                     </StyledButton>
                     <StyledButton
@@ -76,7 +100,7 @@ class Home extends React.Component {
                         onPress={() => this.handleButtonClick("deleted")}
                     >
                         <WhiteText>
-                            Expiring shows
+                            Expiring
                         </WhiteText>
                     </StyledButton>
                 </ButtonWrapper>
@@ -94,16 +118,24 @@ class Home extends React.Component {
                             />
                         )
                     })}
-                    <StyledButton onPress={() => this.changePage(true)}>
-                        <WhiteText>
-                            Previous page
-                        </WhiteText>
-                    </StyledButton>
-                    <StyledButton onPress={() => this.changePage()}>
-                        <WhiteText>
-                            Next page
-                        </WhiteText>
-                    </StyledButton>
+                    <ButtonWrapper>
+                        <StyledButton
+                            buttonWidth={"49%"}
+                            onPress={() => this.changePage(true)}
+                        >
+                            <WhiteText>
+                                Previous
+                            </WhiteText>
+                        </StyledButton>
+                        <StyledButton
+                            buttonWidth={"49%"}
+                            onPress={() => this.changePage()}
+                        >
+                            <WhiteText>
+                                Next
+                            </WhiteText>
+                        </StyledButton>
+                    </ButtonWrapper>
                 </ScrollView>
                 }
             </StyledView>
