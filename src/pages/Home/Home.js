@@ -124,7 +124,6 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  getMe: PropTypes.func.isRequired,
   fetchDeletedShows: PropTypes.func.isRequired,
   fetchActualShows: PropTypes.func.isRequired,
   shows: PropTypes.instanceOf(Array).isRequired,
