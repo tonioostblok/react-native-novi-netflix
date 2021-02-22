@@ -40,5 +40,5 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 Runs the eslint code linter tool.<br />
 
-#Loggin in
+# Loggin in
 To be able to log in, you need have registered in the React JS version of this application. When yo do that, you will be able to log in with your credentials
