@@ -16,7 +16,7 @@ export function fetchShowsChange(payload) {
  * @param countryList
  * @returns {function(*): Promise<unknown>}
  */
-export const fetchActualShows = (offset = 0, limit = 10, countryList = 67, query = 'filterBy= New last 24 hours') => (dispatch) => {
+export const fetchActualShows = (offset = 0, limit = 5, countryList = 67, query = 'filterBy= New last 24 hours') => (dispatch) => {
   const requestObj = {
     ...API_REQUEST_OBJECT,
     method: 'GET',
@@ -41,7 +41,7 @@ export const fetchActualShows = (offset = 0, limit = 10, countryList = 67, query
  * @returns {function(*=): Promise<unknown>}
  */
 export const fetchDeletedShows = (offset = 0,
-  limit = 10,
+  limit = 5,
   countryList = 67) => (dispatch) => {
   const requestObj = {
     ...API_REQUEST_OBJECT,

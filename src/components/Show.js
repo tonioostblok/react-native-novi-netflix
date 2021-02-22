@@ -31,7 +31,7 @@ Show.propTypes = {
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   synopsis: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
   expireDate: PropTypes.string,
 };
 

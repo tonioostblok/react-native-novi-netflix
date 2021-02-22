@@ -1,5 +1,4 @@
 import firebase from '../constants/Firebase';
-import { storeUserId } from '../utils/AsyncStorageMethods';
 
 export const LOGIN_CHANGE = 'LOGIN_CHANGE';
 export const USERNAME_CHANGE = 'USERNAME_CHANGE';
@@ -25,10 +24,11 @@ export function passwordChange(payload) {
   });
 }
 
-// export const users = firebase.database().collection('users');
+export const db = firebase.firestore();
+db.settings({ experimentalForceLongPolling: true });
 
 export const getMe = (hash) => (dispatch) => {
-  firebase.firestore().collection('users').where(firebase.firestore.FieldPath.documentId(), '==', hash).get()
+  db.collection('users').where(firebase.firestore.FieldPath.documentId(), '==', hash).get()
     .then((query) => {
       query.forEach((doc) => {
         const user = doc.data();
@@ -38,14 +38,12 @@ export const getMe = (hash) => (dispatch) => {
 };
 
 export const login = (username, password) => (dispatch) => {
-  firebase.firestore().collection('users').where('username', '==', username).get()
+  db.collection('users').where('username', '==', username).get()
     .then((query) => {
       query.forEach((doc) => {
         const user = doc.data();
         if (user.password === password) {
-          storeUserId(doc.id).then(() => {
-            dispatch(loginChange(user));
-          });
+          dispatch(loginChange(user));
         }
       });
     })
@@ -53,7 +51,13 @@ export const login = (username, password) => (dispatch) => {
       console.error(err);
     });
 };
-
+export const signOut = () => (dispatch) => {
+  dispatch(loginChange({
+    username: '',
+    password: '',
+    country: '',
+  }));
+};
 export const updateUserName = (username) => (dispatch) => {
   dispatch(userNameChange(username));
 };

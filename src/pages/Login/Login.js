@@ -3,29 +3,21 @@ import PropTypes from 'prop-types';
 import {
   StyledView, Title, StyledInput, WhiteText, StyledButton,
 } from '../../components/StyledComponents';
-import { getUserId } from '../../utils/AsyncStorageMethods';
 
 class Login extends React.Component {
-  componentDidMount() {
-    const { navigation } = this.props;
-    getUserId().then((val) => {
-      if (val !== null) {
-        navigation.navigate('Home');
-      }
-    });
+  componentDidUpdate() {
+    const { user, navigation } = this.props;
+    if (user.username !== '') {
+      navigation.navigate('Home');
+    }
   }
 
   submitHandler() {
     const {
-      username, password, login, navigation,
+      username, password, login,
     } = this.props;
     if (username !== '' && password !== '') {
       login(username, password);
-      getUserId().then((val) => {
-        if (val !== null) {
-          navigation.navigate('Home');
-        }
-      });
     }
   }
 
@@ -54,6 +46,7 @@ class Login extends React.Component {
   }
 }
 Login.propTypes = {
+  user: PropTypes.instanceOf(Object).isRequired,
   username: PropTypes.string,
   password: PropTypes.string,
   login: PropTypes.func.isRequired,

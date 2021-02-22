@@ -4,41 +4,27 @@ import { ScrollView } from 'react-native';
 import {
   StyledView, WhiteText, StyledButton, ButtonWrapper,
 } from '../../components/StyledComponents';
-import { getUserId, signOut } from '../../utils/AsyncStorageMethods';
 import Show from '../../components/Show';
-import { loginChange } from '../../store/authentication';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       page: 1,
-      perPage: 10,
+      perPage: 5,
       fetchDeleted: false,
     };
-  }
-
-  componentDidMount() {
-    const { user, getMe, navigation } = this.props;
-    getUserId().then((val) => {
-      if (val === null) {
-        navigation.navigate('Login');
-      }
-      if (user.username === '' && val !== null) {
-        getMe(val);
-      }
-    });
   }
 
   handleButtonClick(val) {
     const { fetchActualShows, fetchDeletedShows, user } = this.props;
     if (val === 'deleted') {
-      fetchDeletedShows(0, 10, user.country);
+      fetchDeletedShows(0, 5, user.country);
       this.setState({
         fetchDeleted: true,
       });
     } else {
-      fetchActualShows(0, 10, user.country);
+      fetchActualShows(0, 5, user.country);
     }
   }
 
@@ -65,15 +51,9 @@ class Home extends React.Component {
   }
 
   signUserOut() {
-    const { navigation } = this.props;
-    signOut().then(() => {
-      navigation.navigate('Login');
-      loginChange({
-        username: '',
-        password: '',
-        country: '',
-      });
-    });
+    const { navigation, signOut } = this.props;
+    signOut();
+    navigation.navigate('Login');
   }
 
   render() {

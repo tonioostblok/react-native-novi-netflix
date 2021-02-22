@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Login from './Home';
 import { fetchActualShows, fetchDeletedShows } from '../../store/netflix';
-import { getMe } from '../../store/authentication';
+import { signOut } from '../../store/authentication';
 
 function mapStateToProps(state) {
   return {
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 const actions = {
   fetchActualShows,
   fetchDeletedShows,
-  getMe,
+  signOut,
 };
 
 export default connect(mapStateToProps, actions)(Login);
