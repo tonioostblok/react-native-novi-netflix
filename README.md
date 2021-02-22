@@ -1,3 +1,13 @@
+##Introduction
+This project is a React Native project which is made for a school assignment. The project in short is displaying netflix shows which are new or about to expire.
+
+##Table of contents
+* Dependencies
+* Installation
+* ios
+* android
+* Available scripts
+
 ##Dependencies
 * Node v10.18.0 (https://nodejs.org/en/blog/release/v10.18.0/)
 * Npm v6.13.4
