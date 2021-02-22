@@ -1,7 +1,7 @@
-##Introduction
+## Introduction
 This project is a React Native project which is made for a school assignment. The project in short is displaying netflix shows which are new or about to expire.
 ![Alt text](screenshot.png?raw=true)
-##Table of contents
+## Table of contents
 * Dependencies
 * Installation
 * ios
@@ -9,22 +9,22 @@ This project is a React Native project which is made for a school assignment. Th
 * Available scripts
 * Loggin in
 
-##Dependencies
+## Dependencies
 * Node v10.18.0 (https://nodejs.org/en/blog/release/v10.18.0/)
 * Npm v6.13.4
 * Yarn v1.22.10 (npm install yarn -g).
 * Cocoapods
 * Tested on MacOS.
 
-#Installation
+# Installation
 * Clone the repository(https://github.com/tonioostblok/react-native-novi-netflix)
 * Run yarn install
-#ios
+# ios
 * Go to the ios directory
 * run the command: pod install
 * go back to the root directory
 * run the command: yarn run ios
-#android
+# android
 * run the command: yarn run android
 
 ## Available Scripts
