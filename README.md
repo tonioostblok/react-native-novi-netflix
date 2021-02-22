@@ -1,12 +1,13 @@
 ##Introduction
 This project is a React Native project which is made for a school assignment. The project in short is displaying netflix shows which are new or about to expire.
-
+![Alt text](screenshot.png?raw=true)
 ##Table of contents
 * Dependencies
 * Installation
 * ios
 * android
 * Available scripts
+* Loggin in
 
 ##Dependencies
 * Node v10.18.0 (https://nodejs.org/en/blog/release/v10.18.0/)
@@ -38,3 +39,6 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### `yarn rurn eslint ./src`
 
 Runs the eslint code linter tool.<br />
+
+#Loggin in
+To be able to log in, you need have registered in the React JS version of this application. When yo do that, you will be able to log in with your credentials
